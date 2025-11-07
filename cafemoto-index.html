@@ -1,0 +1,1673 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft 365 Training Hub - CafeMoto</title>
+    
+    <!-- 
+        █████████████████████████████████████████████████████████████
+        ██                 CLIENT BRANDING SECTION                 ██
+        █████████████████████████████████████████████████████████████
+        
+        CUSTOMIZE FOR EACH CLIENT:
+        1. Replace CafeMoto with client name (e.g., "CafeMoto")
+        2. Replace CafeMoto Coffee Roasters with display name (e.g., "CafeMoto")
+        3. Update version/date below
+        
+        VERSION: 2.0
+        LAST UPDATED: 2024-11-06
+        CLIENT: CafeMoto
+        DEPLOYED: [Automatically filled by PowerShell script]
+        
+        █████████████████████████████████████████████████████████████
+    -->
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+        
+        .container { display: flex; min-height: 100vh; background: #f9fafb; }
+        
+        .sidebar { width: 256px; background: white; border-right: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+        .sidebar-header { padding: 1.5rem; border-bottom: 1px solid #e5e7eb; background: linear-gradient(to right, #FFC107, #333333); }
+        .sidebar-header h2 { color: white; font-size: 1.25rem; font-weight: bold; }
+        .sidebar-header p { color: #dbeafe; font-size: 0.75rem; margin-top: 0.25rem; }
+        .sidebar-header .client-name { color: #FFD54F; font-weight: 600; font-size: 0.875rem; margin-top: 0.5rem; }
+        
+        .nav { padding: 1rem; }
+        .nav-btn { width: 100%; text-align: left; padding: 0.75rem; border-radius: 0.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem; border: none; background: white; cursor: pointer; color: #374151; transition: all 0.2s; font-size: 0.9rem; }
+        .nav-btn:hover { background: #f3f4f6; }
+        .nav-btn.active { background: #FFF9E6; color: #D69E00; border-left: 3px solid #FFC107; font-weight: 600; }
+        
+        .content { flex: 1; overflow: auto; }
+        .content-inner { max-width: 80rem; margin: 0 auto; padding: 2rem; }
+        
+        .hero { background: linear-gradient(to right, #FFC107, #FFB300); color: white; padding: 2rem; border-radius: 0.5rem; margin-bottom: 1.5rem; }
+        .hero h1 { font-size: 1.875rem; font-weight: bold; margin-bottom: 1rem; }
+        .hero p { font-size: 1.125rem; opacity: 0.9; }
+        
+        .section-title { font-size: 1.875rem; font-weight: bold; color: #111827; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+        
+        .card { background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 1rem; }
+        .card h3 { font-size: 1.125rem; font-weight: bold; margin-bottom: 1rem; color: #111827; }
+        .card p { color: #374151; line-height: 1.6; margin-bottom: 0.75rem; }
+        
+        .grid { display: grid; gap: 1rem; margin-bottom: 1.5rem; }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+        
+        .info-box { padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1rem; }
+        .info-box.green { background: #f0fdf4; border-left: 4px solid #22c55e; }
+        .info-box.blue { background: #eff6ff; border-left: 4px solid #3b82f6; }
+        .info-box.purple { background: #faf5ff; border-left: 4px solid #a855f7; }
+        .info-box.cyan { background: #ecfeff; border-left: 4px solid #06b6d4; }
+        .info-box.amber { background: #fffbeb; border-left: 4px solid #f59e0b; border: 1px solid #fcd34d; }
+        .info-box.red { background: #fef2f2; border-left: 4px solid #ef4444; }
+        .info-box h3 { font-weight: bold; margin-bottom: 0.75rem; color: #111827; }
+        .info-box ul { margin-left: 1.5rem; color: #374151; }
+        .info-box li { margin-bottom: 0.5rem; }
+        
+        .priority-badge { background: #ef4444; color: white; padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 600; display: inline-block; margin-left: 0.5rem; }
+        
+        .checklist { display: flex; align-items: start; gap: 0.5rem; margin-bottom: 0.5rem; color: #374151; }
+        .check-icon { color: #16a34a; }
+        
+        .faq-item { border-bottom: 1px solid #e5e7eb; }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-btn { width: 100%; text-align: left; padding: 1rem; display: flex; align-items: start; gap: 0.75rem; border: none; background: white; cursor: pointer; transition: background 0.2s; }
+        .faq-btn:hover { background: #f9fafb; }
+        .faq-chevron { width: 1.25rem; height: 1.25rem; flex-shrink: 0; margin-top: 0.125rem; transition: transform 0.2s; }
+        .faq-chevron.rotated { transform: rotate(90deg); }
+        .faq-answer { padding: 0 1rem 1rem 3rem; color: #374151; font-size: 0.875rem; display: none; line-height: 1.6; }
+        .faq-answer.show { display: block; }
+        
+        table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin: 1rem 0; }
+        thead { background: #f3f4f6; }
+        th { text-align: left; padding: 0.75rem; font-weight: 600; border-bottom: 2px solid #e5e7eb; }
+        td { padding: 0.75rem; border-top: 1px solid #e5e7eb; vertical-align: top; }
+        
+        ul { margin-left: 1.5rem; margin-bottom: 1rem; }
+        ol { margin-left: 1.5rem; margin-bottom: 1rem; }
+        li { margin-bottom: 0.5rem; color: #374151; line-height: 1.6; }
+        
+        strong { color: #111827; }
+        
+        a { color: #2563eb; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+        .hidden { display: none; }
+        
+        /* CafeMoto Logo Styling */
+        .logo-container {
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255,255,255,0.15);
+            border-radius: 0.5rem;
+        }
+        .logo-container svg {
+            width: 170px;
+            height: auto;
+            filter: brightness(1.15) drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; position: relative; height: auto; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <svg viewBox="0 0 730 161" xmlns="http://www.w3.org/2000/svg">
+                        <g><path fill="#231F20" d="M367.3 103.5l-12-31.8-.4-1.2h-10.2l-.4 1.2-12.2 31.8-.9 2.4h11.4l.5-1.1 1.7-4.4h8.9l1.6 4.3.4 1.2h11.4zm-18.2-15.8l.9 2.8h-1.9z"/><path fill="#231F20" d="M293.1 69.7c-4.9 0-9.9 2.1-13.4 5.7-3.4 3.5-5.2 8-5.2 12.9 0 5.5 1.9 9.9 5.7 13.4 3.6 3.3 8.3 5.2 13.2 5.2 2.8 0 4.9-.6 7.6-1.5l1.5-.5V88.6l-3.2 3.8c-1.4 1.7-3.6 2.7-5.7 2.7-4.1 0-6.8-2.8-6.8-6.8 0-4.1 2.7-7 6.7-7 2.3 0 4.5 1 5.8 2.8l3.3 4.4V71.9l-1.1-.5c-2.8-1.2-5.5-1.7-8.2-1.7z"/><path fill="#231F20" d="M395.9 105.9h11.9V93.5h9.1v-10.7h-9.1v-1.6h10v-10.7h-21.9zM448.2 105.9H470V95.3h-9.8v-1.8h9.3v-10.7h-9.3v-1.6H470V70.5h-21.8zM547.6 70.5l-5.5 13.8-5.2-13.8h-11l-6 35.4h12l1.9-13.2 5.3 13.2h5.7l5.5-13.2 1.7 13.2h12l-5.3-35.4z"/><path fill="#231F20" d="M604.6 69.5c-10.7 0-19.4 8.2-19.4 18.2 0 11.2 8.2 19.4 19.4 19.4 11.2 0 19.4-8.1 19.4-19.4 0-10.1-8.7-18.2-19.4-18.2zm0 25.9c-4.1 0-7.2-3.3-7.2-7.7 0-3.5 3.3-6.6 7.2-6.6 3.8 0 7.2 3.1 7.2 6.6 0 4.4-3.1 7.7-7.2 7.7z"/><path fill="#231F20" d="M644.9 81.2h6.8v24.7h11.9V81.2h6.8V70.5h-25.5zM710.8 69.5c-10.7 0-19.4 8.2-19.4 18.2 0 11.2 8.2 19.4 19.4 19.4 11.2 0 19.4-8.1 19.4-19.4 0-10.1-8.7-18.2-19.4-18.2zm0 25.9c-4.1 0-7.2-3.3-7.2-7.7 0-3.5 3.3-6.6 7.2-6.6 3.8 0 7.2 3.1 7.2 6.6-.1 4.4-3.2 7.7-7.2 7.7z"/></g><g><path fill="#FFC325" d="M300.7 83c-1.7-2.3-4.4-3.5-7.3-3.5-5.1 0-8.5 3.9-8.5 8.8 0 5 3.5 8.6 8.6 8.6 2.7 0 5.4-1.3 7.1-3.4v9.9c-2.7.8-4.7 1.5-7.3 1.5-4.4 0-8.6-1.7-11.9-4.7-3.5-3.2-5.1-7.3-5.1-12 0-4.3 1.6-8.5 4.7-11.6 3.1-3.2 7.6-5.1 12.1-5.1 2.7 0 5.1.6 7.5 1.6v13.9z"/><path fill="#FFC325" d="M343.4 98.6l-2.2 5.5h-8.8l12.2-31.8h9l12 31.8h-8.8l-2.1-5.5h-11.3zm5.8-16.4l-3.5 10.1h6.9z"/><path fill="#FFC325" d="M406 79.3v5.3h9.1v7H406v12.5h-8.3V72.3H416v7zM458.3 79.3v5.3h9.3v7h-9.3v5.5h9.8v7h-18.1V72.3h18.1v7zM527.5 72.3h8.1l6.4 17 6.8-17h8.2l4.8 31.8h-8.3l-2.3-18.3-7.6 18.3h-3.3L533 85.8l-2.7 18.3h-8.2z"/><path fill="#FFC325" d="M622.1 87.6c0 10.3-7.4 17.5-17.6 17.5-10.2 0-17.6-7.2-17.6-17.5 0-9.6 8.4-16.3 17.6-16.3 10.2 0 17.6 6.7 17.6 16.3zm-26.5.1c0 5.5 4 9.5 9 9.5 4.9 0 9-4 9-9.5 0-4.4-4-8.4-9-8.4s-9 4-9 8.4z"/><path fill="#FFC325" d="M661.8 104.1h-8.3V79.3h-6.8v-7h21.9v7h-6.8zM728.4 87.6c0 10.3-7.4 17.5-17.6 17.5-10.2 0-17.6-7.2-17.6-17.5 0-9.6 8.4-16.3 17.6-16.3 10.2 0 17.6 6.7 17.6 16.3zm-26.6.1c0 5.5 4.1 9.5 9 9.5 4.9 0 9-4 9-9.5 0-4.4-4-8.4-9-8.4-4.9 0-9 4-9 8.4z"/></g><circle cx="136" cy="51" r="50" fill="#231F20"/><circle cx="136" cy="51" r="43.6" fill="#fff"/><path fill="#FFC325" d="M135.9 2.7c-26.8 0-48.5 21.6-48.5 48.3 0 26.7 21.7 48.3 48.5 48.3 26.8 0 48.5-21.6 48.5-48.3 0-26.7-21.7-48.3-48.5-48.3zm0 91.5c-24 0-43.4-19.3-43.4-43.1 0-23.8 19.4-43.1 43.4-43.1 24 0 43.4 19.3 43.4 43.1 0 23.8-19.4 43.1-43.4 43.1z"/></svg>
+                </div>
+                <h2>M365 Training</h2>
+                <p>Your Complete Guide</p>
+                <div class="client-name">CafeMoto Coffee Roasters</div>
+            </div>
+            <nav class="nav" id="nav"></nav>
+        </div>
+        
+        <!-- Content -->
+        <div class="content">
+            <div class="content-inner" id="content"></div>
+        </div>
+    </div>
+
+    <script>
+        const sections = [
+            { id: 'home', name: '🏠 Home' },
+            { id: 'quickstart', name: '⚡ Quick Start' },
+            { id: 'edge', name: '🌐 Microsoft Edge' },
+            { id: 'teams', name: '💬 Teams' },
+            { id: 'outlook', name: '✉️ Outlook' },
+            { id: 'onedrive', name: '☁️ OneDrive' },
+            { id: 'sharepoint', name: '📁 SharePoint' },
+            { id: 'officeapps', name: '📝 Office Apps' },
+            { id: 'copilot', name: '🤖 Copilot' },
+            { id: 'transition', name: '🔄 Gmail Transition' },
+            { id: 'help', name: '🆘 Help & Resources' },
+            { id: 'faq', name: '❓ FAQ' },
+        ];
+
+        let activeSection = 'home';
+
+        function renderNav() {
+            const nav = document.getElementById('nav');
+            nav.innerHTML = sections.map(section => `
+                <button class="nav-btn ${activeSection === section.id ? 'active' : ''}" onclick="setSection('${section.id}')">
+                    ${section.name}
+                </button>
+            `).join('');
+        }
+
+        function setSection(id) {
+            activeSection = id;
+            renderNav();
+            renderContent();
+            window.scrollTo(0, 0);
+        }
+
+        function renderContent() {
+            const content = document.getElementById('content');
+            
+            const pages = {
+                home: `
+                    <div class="hero">
+                        <h1>Welcome to Your M365 Training Hub</h1>
+                        <p>Everything you need to master Microsoft 365 - designed for CafeMoto Coffee Roasters</p>
+                    </div>
+                    
+                    <div class="info-box amber">
+                        <h3>🎯 Start Here: Your Learning Path</h3>
+                        <p style="margin-bottom: 1rem;">Follow this recommended order for fastest results:</p>
+                        <ol style="color: #374151; line-height: 1.8;">
+                            <li><strong>Microsoft Edge</strong> <span class="priority-badge">PRIORITY #1</span><br>
+                                <span style="font-size: 0.875rem;">Your browser matters! Edge is optimized for M365 - set it up first (5 min)</span>
+                            </li>
+                            <li><strong>Quick Start Guide</strong><br>
+                                <span style="font-size: 0.875rem;">Get the essentials in 20 minutes - everything you need for Day 1</span>
+                            </li>
+                            <li><strong>Teams</strong> <span class="priority-badge">PRIORITY #2</span><br>
+                                <span style="font-size: 0.875rem;">Master meetings and collaboration - your most-used app</span>
+                            </li>
+                            <li><strong>Outlook</strong> <span class="priority-badge">PRIORITY #3</span><br>
+                                <span style="font-size: 0.875rem;">Email and calendar mastery - better than Gmail</span>
+                            </li>
+                            <li><strong>Other Apps</strong><br>
+                                <span style="font-size: 0.875rem;">OneDrive, SharePoint, Office Apps - explore as needed</span>
+                            </li>
+                        </ol>
+                    </div>
+                    
+                    <div class="grid grid-3">
+                        <div class="card" onclick="setSection('edge')" style="cursor: pointer; border: 2px solid #3b82f6;">
+                            <h3>🌐 Microsoft Edge</h3>
+                            <p style="color: #2563eb; font-weight: 600; margin-bottom: 0.5rem;">SET UP FIRST! (5 min)</p>
+                            <p>Your browser for M365. Import from Chrome in 30 seconds, get better performance and integration.</p>
+                        </div>
+                        
+                        <div class="card" onclick="setSection('quickstart')" style="cursor: pointer;">
+                            <h3>⚡ Quick Start</h3>
+                            <p>First week essentials. Get up and running with M365 basics in 20 minutes.</p>
+                        </div>
+                        
+                        <div class="card" onclick="setSection('teams')" style="cursor: pointer;">
+                            <h3>💬 Teams</h3>
+                            <p>Meetings, chat, and collaboration. Your communication hub.</p>
+                        </div>
+                        
+                        <div class="card" onclick="setSection('outlook')" style="cursor: pointer;">
+                            <h3>✉️ Outlook</h3>
+                            <p>Email and calendar with powerful features Gmail doesn't have.</p>
+                        </div>
+                        
+                        <div class="card" onclick="setSection('onedrive')" style="cursor: pointer;">
+                            <h3>☁️ OneDrive</h3>
+                            <p>Your personal cloud storage - 1TB+ space for all your files.</p>
+                        </div>
+                        
+                        <div class="card" onclick="setSection('transition')" style="cursor: pointer;">
+                            <h3>🔄 Gmail Transition</h3>
+                            <p>Coming from Gmail/Chrome? This guide is for you.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box blue">
+                        <h3>💡 Training Philosophy: Teach You to Fish</h3>
+                        <p>This hub doesn't just give you answers - it teaches you <strong>HOW to find answers</strong>. Each guide includes:</p>
+                        <ul>
+                            <li>Quick start tutorials for immediate productivity</li>
+                            <li>Essential daily tasks with step-by-step instructions</li>
+                            <li>Comparison guides for Gmail/Chrome users</li>
+                            <li>Links to deeper learning when you're ready</li>
+                        </ul>
+                        <p style="margin-top: 1rem;"><strong>Goal:</strong> Make you self-sufficient, not dependent on IT support.</p>
+                    </div>
+                    
+                    <div class="info-box green">
+                        <h3>✅ Your First Hour Checklist</h3>
+                        <div class="checklist"><span class="check-icon">✓</span><span><strong>5 min:</strong> Set up Microsoft Edge and import from Chrome</span></div>
+                        <div class="checklist"><span class="check-icon">✓</span><span><strong>10 min:</strong> Complete Quick Start Guide</span></div>
+                        <div class="checklist"><span class="check-icon">✓</span><span><strong>15 min:</strong> Learn Teams basics (join meeting, send chat)</span></div>
+                        <div class="checklist"><span class="check-icon">✓</span><span><strong>15 min:</strong> Set up Outlook (folders, rules)</span></div>
+                        <div class="checklist"><span class="check-icon">✓</span><span><strong>15 min:</strong> Explore OneDrive (upload, share a file)</span></div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>❓ Need Help?</h3>
+                        <ul>
+                            <li><strong>Check the FAQ</strong> - Most common questions answered</li>
+                            <li><strong>Use the search</strong> - M365 has powerful search everywhere</li>
+                            <li><strong>Ask IT Support</strong> - We're here to help!</li>
+                        </ul>
+                    </div>
+                `,
+                
+                edge: `
+                    <h1 class="section-title">🌐 Microsoft Edge - Your M365 Browser</h1>
+                    
+                    <div class="info-box red">
+                        <h3>⚡ SET UP FIRST! (5 Minutes)</h3>
+                        <p><strong>Why Edge matters:</strong> While you can use any browser, Edge is specifically optimized for M365. You'll notice faster loading, better integration, and exclusive features. For Chrome users: Edge IS Chrome (same engine) with M365 enhancements.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🚀 Quick Setup for Chrome Users</h3>
+                        <p><strong>Good news:</strong> Edge is built on the same Chromium engine as Chrome. Everything works exactly the same!</p>
+                        
+                        <ol style="margin-top: 1rem; line-height: 1.8;">
+                            <li><strong>Download & Install</strong><br>
+                                Go to <a href="https://microsoft.com/edge" target="_blank">microsoft.com/edge</a> or search "download edge" (may already be installed on Windows)</li>
+                            <li><strong>Sign In</strong><br>
+                                Use your CafeMoto Coffee Roasters M365 account - critical for best integration!</li>
+                            <li><strong>Import from Chrome</strong> (30 seconds)<br>
+                                Settings → Profiles → Import browser data → Select Chrome → Import<br>
+                                <span style="font-size: 0.875rem; color: #6b7280;">✓ Bookmarks ✓ Passwords ✓ Extensions ✓ History</span></li>
+                            <li><strong>Set Office.com as Homepage</strong><br>
+                                Settings → Start, home, and new tabs → Set custom URL: office.com</li>
+                            <li><strong>Done!</strong> Start using M365 in Edge</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="grid grid-2">
+                        <div class="info-box blue">
+                            <h3>✅ What's the Same as Chrome</h3>
+                            <ul>
+                                <li>Same Chromium engine (Google's technology)</li>
+                                <li>Same keyboard shortcuts (Ctrl+T, Ctrl+W, etc.)</li>
+                                <li>Same extensions (install from Chrome Web Store!)</li>
+                                <li>Same DevTools for developers</li>
+                                <li>Same performance and compatibility</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-box green">
+                            <h3>✨ What's Better in Edge</h3>
+                            <ul>
+                                <li><strong>M365 Integration</strong> - Automatic sign-on, faster apps</li>
+                                <li><strong>PWAs</strong> - Install Teams/Outlook as "apps"</li>
+                                <li><strong>Collections</strong> - Organize research and projects</li>
+                                <li><strong>Vertical Tabs</strong> - Better tab management</li>
+                                <li><strong>Performance</strong> - 25% less memory, longer battery</li>
+                                <li><strong>Sleeping Tabs</strong> - Automatic memory management</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>💎 Must-Try Features</h3>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong style="color: #2563eb;">1. Progressive Web Apps (PWAs)</strong>
+                            <p style="margin-top: 0.5rem;">Install M365 apps like desktop applications:</p>
+                            <ol style="margin-top: 0.5rem;">
+                                <li>Go to teams.microsoft.com or outlook.office.com</li>
+                                <li>Click the install icon in address bar (looks like: ⊕)</li>
+                                <li>Click "Install"</li>
+                                <li>App opens in its own window, pins to taskbar!</li>
+                            </ol>
+                            <p style="font-size: 0.875rem; color: #6b7280; margin-top: 0.5rem;">Result: Teams and Outlook feel like desktop apps without separate downloads!</p>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong style="color: #2563eb;">2. Collections</strong>
+                            <p style="margin-top: 0.5rem;">Organize web pages, images, and notes by project:</p>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Click Collections icon (looks like: ⊞) or Ctrl+Shift+Y</li>
+                                <li>Create new collection for a project</li>
+                                <li>Add pages, images, notes as you browse</li>
+                                <li>Export to Word or Excel when done</li>
+                            </ul>
+                            <p style="font-size: 0.875rem; color: #6b7280; margin-top: 0.5rem;">Perfect for research projects, vacation planning, or gathering resources!</p>
+                        </div>
+                        
+                        <div>
+                            <strong style="color: #2563eb;">3. Vertical Tabs</strong>
+                            <p style="margin-top: 0.5rem;">Better organization for many open tabs:</p>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Click vertical tabs icon (left side of tab bar)</li>
+                                <li>Tabs appear on left sidebar - easier to read titles</li>
+                                <li>More screen space for content</li>
+                                <li>Native in Edge (Chrome needs extension)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>❓ Common Chrome User Questions</h3>
+                        
+                        <table>
+                            <tr>
+                                <td style="width: 40%;"><strong>Q: Will I lose my Chrome bookmarks?</strong></td>
+                                <td>No! Import process copies everything. Chrome stays unchanged.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Q: Do I have to uninstall Chrome?</strong></td>
+                                <td>No! Keep both. Many use Edge for work, Chrome for personal.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Q: Will my extensions work?</strong></td>
+                                <td>Yes! 99% of Chrome extensions work in Edge. Install from Chrome Web Store or Edge Add-ons.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Q: Can I still use Google services?</strong></td>
+                                <td>Yes! Gmail, Google Drive, all Google services work perfectly in Edge.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Q: What about bookmarks vs. favorites?</strong></td>
+                                <td>Same thing, different name. Chrome calls them bookmarks, Edge calls them favorites.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Q: How long to adjust?</strong></td>
+                                <td>Most people feel comfortable in 3-5 days. It's familiar by design!</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="info-box purple">
+                        <h3>🏆 Bottom Line for Chrome Users</h3>
+                        <p><strong>What stays the same:</strong> Engine, shortcuts, extensions, interface, speed - everything familiar</p>
+                        <p style="margin-top: 0.5rem;"><strong>What gets better:</strong> M365 integration, performance, battery life, exclusive features</p>
+                        <p style="margin-top: 0.5rem;"><strong>What you lose:</strong> Nothing (seriously)</p>
+                        <p style="margin-top: 1rem; font-weight: 600; color: #7c3aed;">Give it one week. You'll understand why people don't switch back.</p>
+                    </div>
+                `,
+                
+                quickstart: `
+                    <h1 class="section-title">⚡ Quick Start Guide</h1>
+                    
+                    <div class="info-box amber">
+                        <p style="font-weight: 600; font-size: 1.125rem;">Your goal: Be productive in M365 within one week</p>
+                        <p style="margin-top: 0.5rem;">This guide focuses on the <strong>essential 20%</strong> that gets you <strong>80% productive</strong>.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>✅ Day 1: Essential Setup (20 minutes)</h3>
+                        
+                        <div style="margin-bottom: 1.5rem; padding: 1rem; background: #eff6ff; border-radius: 0.5rem;">
+                            <strong style="color: #1e40af;">1. Set Up Microsoft Edge (5 min) - DO THIS FIRST!</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Install Edge from microsoft.com/edge</li>
+                                <li>Sign in with CafeMoto Coffee Roasters account</li>
+                                <li>Import from Chrome (30 seconds)</li>
+                                <li>Set office.com as homepage</li>
+                            </ul>
+                            <p style="margin-top: 0.5rem; font-size: 0.875rem; color: #2563eb;">→ See full Edge setup guide in the Edge module</p>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong>2. Sign Into M365 (2 min)</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Go to office.com in Edge</li>
+                                <li>Sign in with your CafeMoto Coffee Roasters email</li>
+                                <li>Bookmark this page (Ctrl+D)</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong>3. Install Apps (Optional, 5 min)</strong>
+                            <p style="margin-top: 0.5rem; font-size: 0.875rem; color: #6b7280;">Choose one of these approaches:</p>
+                            <ul style="margin-top: 0.5rem;">
+                                <li><strong>Option A:</strong> Install Teams and Outlook as PWAs in Edge (recommended - fast and easy)</li>
+                                <li><strong>Option B:</strong> Download desktop apps from office.com</li>
+                                <li><strong>Option C:</strong> Use web versions only (works great for most people)</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <strong>4. Set Up Your Profile (3 min)</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Click your profile picture → My account</li>
+                                <li>Add a profile photo</li>
+                                <li>Update your contact information</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-2">
+                        <div class="card">
+                            <h3>📅 Day 2-3: Master Communication</h3>
+                            <ul>
+                                <li><strong>Teams</strong>
+                                    <ul style="margin-top: 0.5rem;">
+                                        <li>Join your first meeting</li>
+                                        <li>Send a chat message</li>
+                                        <li>Share your screen</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Outlook</strong>
+                                    <ul style="margin-top: 0.5rem;">
+                                        <li>Send/receive email</li>
+                                        <li>Create calendar event</li>
+                                        <li>Set up email folders</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>💾 Day 4-5: File Management</h3>
+                            <ul>
+                                <li><strong>OneDrive</strong>
+                                    <ul style="margin-top: 0.5rem;">
+                                        <li>Upload files</li>
+                                        <li>Share a file</li>
+                                        <li>Sync to computer</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Office Apps</strong>
+                                    <ul style="margin-top: 0.5rem;">
+                                        <li>Create/edit Word doc</li>
+                                        <li>Try real-time co-authoring</li>
+                                        <li>Save to OneDrive</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box green">
+                        <h3>🎯 End of Week Checklist</h3>
+                        <p>By Friday, you should be able to:</p>
+                        <div class="checklist"><span class="check-icon">✓</span><span>Use Edge for M365 work</span></div>
+                        <div class="checklist"><span class="check-icon">✓</span><span>Join Teams meetings</span></div>
+                        <div class="checklist"><span class="check-icon">✓</span><span>Send/manage email in Outlook</span></div>
+                        <div class="checklist"><span class="check-icon">✓</span><span>Check your calendar</span></div>
+                        <div class="checklist"><span class="check-icon">✓</span><span>Save files to OneDrive</span></div>
+                        <div class="checklist"><span class="check-icon">✓</span><span>Share a file with a colleague</span></div>
+                        <div class="checklist"><span class="check-icon">✓</span><span>Edit a document in browser</span></div>
+                    </div>
+                    
+                    <div class="info-box blue">
+                        <h3>💡 Pro Tips for First Week</h3>
+                        <ul>
+                            <li><strong>Use web apps first</strong> - They're fast, familiar, and require no installation</li>
+                            <li><strong>Keyboard shortcuts work</strong> - Ctrl+C, Ctrl+V, Ctrl+F all work the same</li>
+                            <li><strong>Search is powerful</strong> - Use the search bar at top to find anything</li>
+                            <li><strong>Ask questions</strong> - IT support is here to help!</li>
+                            <li><strong>Be patient</strong> - Most people feel comfortable after 5-7 days</li>
+                        </ul>
+                    </div>
+                `,
+                
+                teams: `
+                    <h1 class="section-title">💬 Microsoft Teams</h1>
+                    
+                    <div class="info-box cyan">
+                        <p style="font-weight: 600; font-size: 1.125rem;">Your Hub for Meetings, Chat, and Collaboration</p>
+                        <p style="margin-top: 0.5rem;">Teams combines Zoom, Slack, and Google Drive into one app. It's more powerful than it first appears!</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🚀 Getting Started with Teams</h3>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong>Access Teams:</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li><strong>Web:</strong> teams.microsoft.com (works great in Edge!)</li>
+                                <li><strong>PWA:</strong> Install as app from Edge (recommended)</li>
+                                <li><strong>Desktop:</strong> Download from office.com</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <strong>First Time Setup (2 min):</strong>
+                            <ol style="margin-top: 0.5rem;">
+                                <li>Sign in with CafeMoto Coffee Roasters account</li>
+                                <li>Allow microphone and camera permissions</li>
+                                <li>Set your status (Available, Busy, etc.)</li>
+                                <li>Add profile photo</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-2">
+                        <div class="card">
+                            <h3>📹 Join a Meeting</h3>
+                            <ol>
+                                <li><strong>From calendar:</strong> Click meeting → Join</li>
+                                <li><strong>From email:</strong> Click "Join Teams Meeting" link</li>
+                                <li><strong>From chat:</strong> Click video camera icon</li>
+                            </ol>
+                            <p style="margin-top: 1rem; font-size: 0.875rem; color: #6b7280;"><strong>Before joining:</strong> Test camera/mic, choose background blur</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>💬 Send a Chat</h3>
+                            <ol>
+                                <li>Click "Chat" in left sidebar</li>
+                                <li>Click "New chat" (pencil icon)</li>
+                                <li>Type person's name</li>
+                                <li>Type message and press Enter</li>
+                            </ol>
+                            <p style="margin-top: 1rem; font-size: 0.875rem; color: #6b7280;"><strong>Tip:</strong> Use @mentions to notify specific people</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🎥 Essential Meeting Controls</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Control</th>
+                                    <th>What It Does</th>
+                                    <th>Keyboard</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Mute/Unmute</strong></td>
+                                    <td>Turn your microphone on/off</td>
+                                    <td>Ctrl+Shift+M</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Camera On/Off</strong></td>
+                                    <td>Show/hide your video</td>
+                                    <td>Ctrl+Shift+O</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Share Screen</strong></td>
+                                    <td>Show your screen to others</td>
+                                    <td>Ctrl+Shift+E</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Raise Hand</strong></td>
+                                    <td>Signal you want to speak</td>
+                                    <td>Ctrl+Shift+K</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Chat</strong></td>
+                                    <td>Open meeting chat</td>
+                                    <td>Ctrl+Shift+Space</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Leave</strong></td>
+                                    <td>Exit the meeting</td>
+                                    <td>Ctrl+Shift+H</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="info-box purple">
+                        <h3>💎 Teams Features You Should Try</h3>
+                        <ul>
+                            <li><strong>Background Blur/Effects</strong> - Hide messy rooms (... menu → Background effects)</li>
+                            <li><strong>Meeting Recording</strong> - Record for those who miss it (... menu → Record)</li>
+                            <li><strong>Live Captions</strong> - Real-time subtitles (... menu → Turn on live captions)</li>
+                            <li><strong>Reactions</strong> - 👍 ❤️ 😂 during meetings (no need to unmute)</li>
+                            <li><strong>Polls</strong> - Quick surveys during meetings</li>
+                            <li><strong>Breakout Rooms</strong> - Split into smaller groups</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-box blue">
+                        <h3>🎯 Best Practices</h3>
+                        <ul>
+                            <li>Mute when not speaking (reduces background noise)</li>
+                            <li>Use video when possible (builds connection)</li>
+                            <li>Share specific windows, not entire screen (privacy!)</li>
+                            <li>Use chat for questions during presentations</li>
+                            <li>Set status when busy/away/focusing</li>
+                        </ul>
+                    </div>
+                `,
+                
+                outlook: `
+                    <h1 class="section-title">✉️ Microsoft Outlook</h1>
+                    
+                    <div class="info-box blue">
+                        <p style="font-weight: 600; font-size: 1.125rem;">Email + Calendar with Features Gmail Doesn't Have</p>
+                        <p style="margin-top: 0.5rem;">Outlook combines email, calendar, contacts, and tasks in one place.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🚀 Getting Started with Outlook</h3>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong>Access Outlook:</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li><strong>Web:</strong> outlook.office.com (fast and full-featured)</li>
+                                <li><strong>PWA:</strong> Install from Edge (recommended)</li>
+                                <li><strong>Desktop:</strong> Download from office.com</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <strong>First Time Setup (5 min):</strong>
+                            <ol style="margin-top: 0.5rem;">
+                                <li>Sign in with CafeMoto Coffee Roasters account</li>
+                                <li>Set up email signature (Settings → Mail → Compose and reply)</li>
+                                <li>Create important folders (Right-click Folders → New folder)</li>
+                                <li>Set up calendar notifications</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-2">
+                        <div class="info-box green">
+                            <h3>✅ What's Better Than Gmail</h3>
+                            <ul>
+                                <li><strong>Rules</strong> - More powerful than Gmail filters</li>
+                                <li><strong>Categories</strong> - Color-code emails (better than labels)</li>
+                                <li><strong>Folders</strong> - Hierarchical organization</li>
+                                <li><strong>Quick Steps</strong> - One-click multi-action buttons</li>
+                                <li><strong>Focused Inbox</strong> - AI sorts important email</li>
+                                <li><strong>Calendar Integration</strong> - Seamless scheduling</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-box purple">
+                            <h3>🔄 Gmail to Outlook Translation</h3>
+                            <ul>
+                                <li><strong>Labels</strong> → Categories or Folders</li>
+                                <li><strong>Stars</strong> → Flags</li>
+                                <li><strong>Archive</strong> → Archive (same!)</li>
+                                <li><strong>Primary/Social tabs</strong> → Focused/Other</li>
+                                <li><strong>Filters</strong> → Rules</li>
+                                <li><strong>Snooze</strong> → Snooze (same!)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>📅 Calendar Essentials</h3>
+                        
+                        <div style="margin-bottom: 1rem;">
+                            <strong>Create a Meeting:</strong>
+                            <ol style="margin-top: 0.5rem;">
+                                <li>Click "New event" in calendar</li>
+                                <li>Add title, attendees, time</li>
+                                <li>Click "Teams meeting" to add video link</li>
+                                <li>Send invitation</li>
+                            </ol>
+                        </div>
+                        
+                        <div style="margin-bottom: 1rem;">
+                            <strong>Check Availability:</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Click "Scheduling Assistant" when creating event</li>
+                                <li>See when all attendees are free</li>
+                                <li>Choose best time slot</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <strong>Calendar Views:</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li><strong>Day:</strong> Detailed hour-by-hour</li>
+                                <li><strong>Week:</strong> See your whole week</li>
+                                <li><strong>Month:</strong> Big picture planning</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box amber">
+                        <h3>💡 Pro Tips</h3>
+                        <ul>
+                            <li><strong>Use Categories</strong> - Right-click email → Categorize → Create colors for projects</li>
+                            <li><strong>Create Rules</strong> - Right-click email → Rules → Automatically sort incoming mail</li>
+                            <li><strong>Quick Steps</strong> - Create buttons for common actions (move+flag+categorize in one click)</li>
+                            <li><strong>Search Everything</strong> - Search bar finds email, calendar, contacts, files</li>
+                            <li><strong>Focused Inbox</strong> - Let AI sort important email (Settings → Mail → Focused inbox)</li>
+                        </ul>
+                    </div>
+                `,
+                
+                sharepoint: `
+                    <h1 class="section-title">📁 SharePoint - Team Collaboration</h1>
+                    
+                    <div class="info-box blue">
+                        <p style="font-weight: 600; font-size: 1.125rem;">Team File Storage + Collaboration Hub</p>
+                        <p style="margin-top: 0.5rem;">SharePoint is where teams store, organize, and collaborate on files together. It's the shared workspace for your entire organization.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🆚 OneDrive vs SharePoint</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Your Question</th>
+                                    <th>Use This</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Is this MY file that only I work on?</td>
+                                    <td><strong>OneDrive ✅</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Does my TEAM need to collaborate on this?</td>
+                                    <td><strong>SharePoint ✅</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Is this project documentation?</td>
+                                    <td><strong>SharePoint ✅</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Is this my personal draft?</td>
+                                    <td><strong>OneDrive ✅</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Do multiple people need to edit this?</td>
+                                    <td><strong>SharePoint ✅</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 1rem; font-weight: 600; color: #2563eb;">Simple Rule: OneDrive = I own it | SharePoint = We own it</p>
+                    </div>
+                    
+                    <div class="info-box cyan">
+                        <h3>🔗 SharePoint & Teams Connection</h3>
+                        <p><strong>Key Insight:</strong> When you create a Team in Microsoft Teams, it automatically creates a SharePoint site!</p>
+                        <ul style="margin-top: 0.5rem;">
+                            <li>Upload files to Teams = Stored in SharePoint</li>
+                            <li>Files tab in Teams = SharePoint document library</li>
+                            <li>They're the same files in different interfaces!</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="grid grid-2">
+                        <div class="card">
+                            <h3>📤 Upload Files to Team</h3>
+                            <ol>
+                                <li>Go to your Team in Teams app</li>
+                                <li>Click <strong>Files</strong> tab</li>
+                                <li>Click <strong>Upload</strong> or drag and drop</li>
+                                <li>Files available to team instantly!</li>
+                            </ol>
+                            <p style="margin-top: 1rem; font-size: 0.875rem; color: #6b7280;">💡 Large uploads: Drag and drop is fastest!</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>📁 Organize with Folders</h3>
+                            <ol>
+                                <li>In Files tab or SharePoint library</li>
+                                <li>Click <strong>+ New</strong> → <strong>Folder</strong></li>
+                                <li>Name it (e.g., "Q4 Reports")</li>
+                                <li>Upload/move files into folder</li>
+                            </ol>
+                            <p style="margin-top: 1rem; font-size: 0.875rem; color: #6b7280;">💡 Keep structure simple - 2-3 levels deep max</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>✨ Collaborate in Real-Time</h3>
+                        <p><strong>SharePoint's superpower - real-time co-authoring!</strong></p>
+                        <ol style="margin-top: 1rem;">
+                            <li>Open Word/Excel/PowerPoint file from SharePoint or Teams</li>
+                            <li>Share link with colleagues</li>
+                            <li>Everyone edits simultaneously!</li>
+                            <li>See each other's cursors and changes</li>
+                            <li>No more "final_v2_FINAL_really.docx"!</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="grid grid-2">
+                        <div class="info-box green">
+                            <h3>✅ Best Practices</h3>
+                            <ul>
+                                <li>Use SharePoint for team files</li>
+                                <li>Use OneDrive for personal files</li>
+                                <li>Create clear folder structure</li>
+                                <li>Share links, don't email files</li>
+                                <li>Leverage version history</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-box purple">
+                            <h3>🔄 For Google Drive Users</h3>
+                            <ul>
+                                <li><strong>Google Shared Drives</strong> = SharePoint</li>
+                                <li><strong>My Drive</strong> = OneDrive</li>
+                                <li>More features and permissions</li>
+                                <li>Better M365 integration</li>
+                                <li>Real-time co-authoring built-in</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box blue">
+                        <h3>🔒 Sharing Files Securely</h3>
+                        <p><strong>Share with External People:</strong></p>
+                        <ol style="margin-top: 0.5rem;">
+                            <li>Click file (don't open)</li>
+                            <li>Click <strong>Share</strong> button</li>
+                            <li>Enter external email address</li>
+                            <li>Choose: Can edit or Can view</li>
+                            <li>Click <strong>Send</strong></li>
+                        </ol>
+                        <p style="margin-top: 1rem; font-size: 0.875rem; color: #1e40af;">🔒 Check with IT about external sharing policies!</p>
+                    </div>
+                `,
+                
+                onedrive: `
+                    <h1 class="section-title">☁️ OneDrive - Your Cloud Storage</h1>
+                    
+                    <div class="info-box blue">
+                        <p style="font-weight: 600; font-size: 1.125rem;">1TB+ Personal Cloud Storage (Way More Than Gmail!)</p>
+                        <p style="margin-top: 0.5rem;">OneDrive is your personal file storage in M365. Access your files from any device, share securely, and never lose work.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🚀 Getting Started</h3>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong>Access OneDrive:</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li><strong>Web:</strong> Go to onedrive.com or click OneDrive icon at office.com</li>
+                                <li><strong>Desktop:</strong> OneDrive folder in File Explorer (syncs automatically)</li>
+                                <li><strong>Mobile:</strong> OneDrive app for iOS/Android</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <strong>First Time Setup:</strong>
+                            <ol style="margin-top: 0.5rem;">
+                                <li>Sign in to onedrive.com</li>
+                                <li>Upload a test file (drag and drop!)</li>
+                                <li>Install OneDrive sync client (optional but recommended)</li>
+                                <li>Choose folders to sync to computer</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-2">
+                        <div class="card">
+                            <h3>📤 Upload Files</h3>
+                            <ul>
+                                <li><strong>Drag and drop</strong> - Easiest way!</li>
+                                <li><strong>Upload button</strong> - Select multiple files</li>
+                                <li><strong>Save directly</strong> - From Office apps, save to OneDrive</li>
+                                <li><strong>Sync folder</strong> - Copy files to OneDrive folder on computer</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>🔗 Share Files</h3>
+                            <ol>
+                                <li>Right-click file → Share</li>
+                                <li>Enter person's email</li>
+                                <li>Choose: View only or Can edit</li>
+                                <li>Click Send</li>
+                            </ol>
+                            <p style="margin-top: 0.5rem; font-size: 0.875rem; color: #6b7280;">They get a link - no need to download and email!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🆚 OneDrive vs. SharePoint</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>OneDrive</th>
+                                    <th>SharePoint</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Purpose</strong></td>
+                                    <td>Personal files</td>
+                                    <td>Team files</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Storage</strong></td>
+                                    <td>1TB+ per user</td>
+                                    <td>25TB+ per organization</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ownership</strong></td>
+                                    <td>Yours</td>
+                                    <td>Company's</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Best For</strong></td>
+                                    <td>Your documents, drafts</td>
+                                    <td>Team collaboration</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 1rem; font-size: 0.875rem; color: #6b7280;"><strong>Rule of thumb:</strong> If only you need it → OneDrive. If the team needs it → SharePoint.</p>
+                    </div>
+                    
+                    <div class="info-box green">
+                        <h3>💎 OneDrive Features</h3>
+                        <ul>
+                            <li><strong>Version History</strong> - See previous versions, restore if needed</li>
+                            <li><strong>Recycle Bin</strong> - Deleted files kept 30 days</li>
+                            <li><strong>Offline Access</strong> - Mark files for offline use</li>
+                            <li><strong>Mobile Scanning</strong> - Scan documents with phone camera</li>
+                            <li><strong>File Requests</strong> - Let others upload files to your OneDrive</li>
+                            <li><strong>Personal Vault</strong> - Extra-secure folder for sensitive files</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-box purple">
+                        <h3>🎯 Best Practices</h3>
+                        <ul>
+                            <li>Use OneDrive for <strong>your personal work files</strong></li>
+                            <li>Use SharePoint/Teams for <strong>team collaboration</strong></li>
+                            <li>Enable sync for easy access from File Explorer</li>
+                            <li>Don't email files - share links instead</li>
+                            <li>Check version history before asking "who changed this?"</li>
+                        </ul>
+                    </div>
+                `,
+                
+                officeapps: `
+                    <h1 class="section-title">📝 Office Apps - Word, Excel, PowerPoint</h1>
+                    
+                    <div class="info-box blue">
+                        <p style="font-weight: 600; font-size: 1.125rem;">Your Core Productivity Tools</p>
+                        <p style="margin-top: 0.5rem;">Microsoft Office apps are your daily tools for documents, spreadsheets, presentations, and more. For Google users: Office = Google Docs/Sheets/Slides, but with more features!</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🌐 Web vs Desktop Apps</h3>
+                        <div class="grid grid-2" style="margin-top: 1rem;">
+                            <div>
+                                <strong style="color: #3b82f6;">Web Apps (Browser):</strong>
+                                <ul style="margin-top: 0.5rem;">
+                                    <li>Quick access, no install</li>
+                                    <li>Auto-save to cloud</li>
+                                    <li>Real-time collaboration</li>
+                                    <li>Fewer features</li>
+                                    <li><strong>Perfect for most work!</strong></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong style="color: #7c3aed;">Desktop Apps (Installed):</strong>
+                                <ul style="margin-top: 0.5rem;">
+                                    <li>Full features</li>
+                                    <li>Work offline</li>
+                                    <li>Better performance</li>
+                                    <li>Requires download</li>
+                                    <li><strong>Use for advanced work</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p style="margin-top: 1rem; padding: 1rem; background: #eff6ff; border-radius: 0.5rem;">
+                            💡 <strong>Start with web apps</strong> - they feel like Google Docs and work great for 90% of tasks!
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-3">
+                        <div class="card">
+                            <h3>📝 Word - Documents</h3>
+                            <p><strong>Create Document:</strong></p>
+                            <ol style="margin-top: 0.5rem; font-size: 0.875rem;">
+                                <li>Go to office.com → Word</li>
+                                <li>Choose blank or template</li>
+                                <li>Start typing</li>
+                                <li>Auto-saves to OneDrive!</li>
+                            </ol>
+                            <p style="margin-top: 1rem;"><strong>Co-Author:</strong></p>
+                            <ul style="font-size: 0.875rem;">
+                                <li>Share document link</li>
+                                <li>Edit together in real-time</li>
+                                <li>See each other's cursors</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>📊 Excel - Spreadsheets</h3>
+                            <p><strong>Create Spreadsheet:</strong></p>
+                            <ol style="margin-top: 0.5rem; font-size: 0.875rem;">
+                                <li>office.com → Excel</li>
+                                <li>Choose blank or template</li>
+                                <li>Build your sheet</li>
+                            </ol>
+                            <p style="margin-top: 1rem;"><strong>Key Formulas:</strong></p>
+                            <ul style="font-size: 0.875rem;">
+                                <li><code>=SUM(A1:A10)</code> - Add</li>
+                                <li><code>=AVERAGE(A1:A10)</code> - Average</li>
+                                <li><code>=IF(A1>100,"Yes","No")</code> - Logic</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>📽️ PowerPoint - Presentations</h3>
+                            <p><strong>Create Presentation:</strong></p>
+                            <ol style="margin-top: 0.5rem; font-size: 0.875rem;">
+                                <li>office.com → PowerPoint</li>
+                                <li>Choose template</li>
+                                <li>Add slides</li>
+                                <li>Present!</li>
+                            </ol>
+                            <p style="margin-top: 1rem;"><strong>PowerPoint Live:</strong></p>
+                            <ul style="font-size: 0.875rem;">
+                                <li>Present in Teams</li>
+                                <li>Speaker notes visible to you</li>
+                                <li>Better than screen share!</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box green">
+                        <h3>💎 Office Apps Features</h3>
+                        <ul>
+                            <li><strong>Templates</strong> - Professional designs for resumes, reports, budgets</li>
+                            <li><strong>Smart Lookup</strong> - Research within your document</li>
+                            <li><strong>Comments & Mentions</strong> - @mention colleagues for feedback</li>
+                            <li><strong>Version History</strong> - Restore previous versions anytime</li>
+                            <li><strong>Mobile Apps</strong> - Edit on phone or tablet</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-box purple">
+                        <h3>🔄 For Google Docs/Sheets Users</h3>
+                        <table style="font-size: 0.875rem;">
+                            <tr>
+                                <td><strong>Google Docs</strong></td>
+                                <td>→</td>
+                                <td><strong>Microsoft Word</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Google Sheets</strong></td>
+                                <td>→</td>
+                                <td><strong>Microsoft Excel</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Google Slides</strong></td>
+                                <td>→</td>
+                                <td><strong>Microsoft PowerPoint</strong></td>
+                            </tr>
+                        </table>
+                        <p style="margin-top: 1rem;"><strong>What's Better in Office:</strong> More features, better formatting control, stronger Excel formulas, professional templates</p>
+                    </div>
+                `,
+                
+                copilot: `
+                    <h1 class="section-title">🤖 Microsoft Copilot - Your AI Assistant</h1>
+                    
+                    <div class="info-box cyan">
+                        <p style="font-weight: 600; font-size: 1.125rem;">AI-Powered Assistant Built Into M365</p>
+                        <p style="margin-top: 0.5rem;">Microsoft Copilot is your AI helper across all M365 apps. It writes emails, summarizes meetings, analyzes data, and more - like having an expert assistant at your fingertips!</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>📍 Where You'll Find Copilot</h3>
+                        <div class="grid grid-2" style="margin-top: 1rem;">
+                            <ul>
+                                <li>✅ <strong>Teams</strong> - Meeting summaries, chat help</li>
+                                <li>✅ <strong>Outlook</strong> - Email drafting, summaries</li>
+                                <li>✅ <strong>Word</strong> - Writing assistance, drafting</li>
+                                <li>✅ <strong>Excel</strong> - Data analysis, formulas</li>
+                            </ul>
+                            <ul>
+                                <li>✅ <strong>PowerPoint</strong> - Slide creation, design</li>
+                                <li>✅ <strong>M365 Chat</strong> - copilot.microsoft.com</li>
+                            </ul>
+                        </div>
+                        <p style="margin-top: 1rem; padding: 1rem; background: #f0f9ff; border-radius: 0.5rem; border-left: 4px solid #06b6d4;">
+                            <strong>Look for the Copilot icon:</strong> 🤖 or purple sparkle ✨
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-2">
+                        <div class="card">
+                            <h3>💬 Teams Copilot</h3>
+                            <p><strong>During Meetings:</strong></p>
+                            <ul style="margin-top: 0.5rem; font-size: 0.875rem;">
+                                <li>Click Copilot icon</li>
+                                <li>Ask: "Summarize this meeting"</li>
+                                <li>Get: Action items, decisions, key points</li>
+                            </ul>
+                            <p style="margin-top: 1rem;"><strong>Example Prompts:</strong></p>
+                            <ul style="font-size: 0.875rem;">
+                                <li>"What were the action items?"</li>
+                                <li>"Summarize today's standup"</li>
+                                <li>"What did [person] say about the deadline?"</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>✉️ Outlook Copilot</h3>
+                            <p><strong>Draft Emails:</strong></p>
+                            <ol style="margin-top: 0.5rem; font-size: 0.875rem;">
+                                <li>Click New email</li>
+                                <li>Click Copilot icon</li>
+                                <li>Type: "Write email asking for project status"</li>
+                                <li>Review and send!</li>
+                            </ol>
+                            <p style="margin-top: 1rem;"><strong>Example Prompts:</strong></p>
+                            <ul style="font-size: 0.875rem;">
+                                <li>"Draft response agreeing to meet Tuesday"</li>
+                                <li>"Summarize this email thread"</li>
+                                <li>"Make this email more professional"</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>💡 Writing Good Prompts</h3>
+                        <p style="margin-bottom: 1rem;"><strong>The Formula: [Action] + [Specific Details] + [Context]</strong></p>
+                        
+                        <div style="background: #fef2f2; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+                            <p style="color: #991b1b; font-weight: 600;">❌ Bad Prompt:</p>
+                            <p style="font-size: 0.875rem;">"Help with email"</p>
+                        </div>
+                        
+                        <div style="background: #f0fdf4; padding: 1rem; border-radius: 0.5rem;">
+                            <p style="color: #166534; font-weight: 600;">✅ Good Prompt:</p>
+                            <p style="font-size: 0.875rem;">"Draft a professional email declining a meeting due to scheduling conflict"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box amber">
+                        <h3>🎯 Pro Tips</h3>
+                        <ul>
+                            <li><strong>Be specific</strong> - More details = better results</li>
+                            <li><strong>Provide context</strong> - "Based on this document..."</li>
+                            <li><strong>Iterate</strong> - First result not perfect? Ask to refine it</li>
+                            <li><strong>Always review</strong> - Copilot is a tool, not a replacement for judgment</li>
+                            <li><strong>Start small</strong> - Try simple tasks first, build confidence</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-box green">
+                        <h3>🔒 Privacy & Security</h3>
+                        <p><strong>Your data stays private:</strong></p>
+                        <ul style="margin-top: 0.5rem;">
+                            <li>✅ Copilot only sees what you can see</li>
+                            <li>✅ Doesn't share your data with others</li>
+                            <li>✅ Works within your permissions</li>
+                            <li>✅ Data encrypted and secure</li>
+                            <li>✅ Microsoft doesn't train AI on your data</li>
+                        </ul>
+                        <p style="margin-top: 1rem; font-weight: 600; color: #166534;">Safe to use for work content!</p>
+                    </div>
+                `,
+                
+                help: `
+                    <h1 class="section-title">🆘 Help & Resources</h1>
+                    
+                    <div class="info-box amber">
+                        <p style="font-weight: 600; font-size: 1.125rem;">Get Support and Keep Learning</p>
+                        <p style="margin-top: 0.5rem;">This section helps you find answers, get support, and continue your M365 learning journey.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🔍 Quick Problem Solvers</h3>
+                        
+                        <div style="margin-bottom: 1rem; padding: 1rem; background: #f9fafb; border-radius: 0.5rem;">
+                            <strong>Can't sign in?</strong>
+                            <ol style="margin-top: 0.5rem; font-size: 0.875rem;">
+                                <li>Check your email address is correct</li>
+                                <li>Try password reset at account.microsoft.com</li>
+                                <li>Clear browser cache and try again</li>
+                                <li>Contact IT support if still stuck</li>
+                            </ol>
+                        </div>
+                        
+                        <div style="margin-bottom: 1rem; padding: 1rem; background: #f9fafb; border-radius: 0.5rem;">
+                            <strong>App not working?</strong>
+                            <ol style="margin-top: 0.5rem; font-size: 0.875rem;">
+                                <li>Refresh the page (F5) or restart app</li>
+                                <li>Check internet connection</li>
+                                <li>Try different browser (use Edge!)</li>
+                                <li>Clear browser cache</li>
+                                <li>Contact IT support</li>
+                            </ol>
+                        </div>
+                        
+                        <div style="padding: 1rem; background: #f9fafb; border-radius: 0.5rem;">
+                            <strong>Can't find a file?</strong>
+                            <ol style="margin-top: 0.5rem; font-size: 0.875rem;">
+                                <li>Use search bar at top of any M365 app</li>
+                                <li>Check OneDrive and SharePoint separately</li>
+                                <li>Look in Teams Files tab</li>
+                                <li>Check if file was shared vs owned by you</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-2">
+                        <div class="info-box blue">
+                            <h3>📚 Microsoft Official Resources</h3>
+                            <ul>
+                                <li><a href="https://support.microsoft.com" target="_blank"><strong>Microsoft Support</strong></a> - Step-by-step guides</li>
+                                <li><a href="https://learn.microsoft.com/training/m365/" target="_blank"><strong>Microsoft Learn</strong></a> - Interactive courses</li>
+                                <li><a href="https://adoption.microsoft.com" target="_blank"><strong>Adoption Hub</strong></a> - Quick videos</li>
+                                <li><a href="https://support.microsoft.com/teams" target="_blank"><strong>Teams Help</strong></a></li>
+                                <li><a href="https://support.microsoft.com/outlook" target="_blank"><strong>Outlook Help</strong></a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-box purple">
+                            <h3>💬 Community Support</h3>
+                            <ul>
+                                <li><a href="https://answers.microsoft.com" target="_blank"><strong>Microsoft Community</strong></a> - Ask questions</li>
+                                <li><a href="https://techcommunity.microsoft.com" target="_blank"><strong>Tech Community</strong></a> - Connect with experts</li>
+                                <li><strong>Reddit:</strong> r/Office365, r/MicrosoftTeams</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>⌨️ Essential Keyboard Shortcuts</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>App</th>
+                                    <th>Action</th>
+                                    <th>Shortcut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Teams</strong></td>
+                                    <td>Mute/Unmute</td>
+                                    <td><code>Ctrl + Shift + M</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Teams</strong></td>
+                                    <td>Camera on/off</td>
+                                    <td><code>Ctrl + Shift + O</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Teams</strong></td>
+                                    <td>Share screen</td>
+                                    <td><code>Ctrl + Shift + E</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Outlook</strong></td>
+                                    <td>New email</td>
+                                    <td><code>Ctrl + N</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Outlook</strong></td>
+                                    <td>Reply</td>
+                                    <td><code>Ctrl + R</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Outlook</strong></td>
+                                    <td>Forward</td>
+                                    <td><code>Ctrl + F</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>All Apps</strong></td>
+                                    <td>Save</td>
+                                    <td><code>Ctrl + S</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>All Apps</strong></td>
+                                    <td>Find/Search</td>
+                                    <td><code>Ctrl + F</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="info-box green">
+                        <h3>📞 Contact Support</h3>
+                        <p><strong>Before Contacting IT:</strong></p>
+                        <ul style="margin-top: 0.5rem;">
+                            <li>Search this training hub</li>
+                            <li>Check Microsoft Support articles</li>
+                            <li>Ask Copilot</li>
+                            <li>Try basic troubleshooting</li>
+                            <li>Note error messages/screenshots</li>
+                        </ul>
+                        <p style="margin-top: 1rem;"><strong>When Contacting IT, Include:</strong></p>
+                        <ul style="font-size: 0.875rem;">
+                            <li>What you were trying to do</li>
+                            <li>What happened instead</li>
+                            <li>Error messages (exact text or screenshot)</li>
+                            <li>Steps you already tried</li>
+                            <li>Which app/browser you're using</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-box blue">
+                        <h3>📱 Mobile Apps</h3>
+                        <p><strong>Download Official Apps:</strong></p>
+                        <ul style="margin-top: 0.5rem;">
+                            <li><strong>Teams</strong> - Meetings and chat on the go</li>
+                            <li><strong>Outlook</strong> - Email and calendar</li>
+                            <li><strong>OneDrive</strong> - Access your files</li>
+                            <li><strong>Office</strong> - All-in-one Word/Excel/PowerPoint</li>
+                            <li><strong>SharePoint</strong> - Team sites on mobile</li>
+                        </ul>
+                    </div>
+                `,
+                
+                transition: `
+                    <h1 class="section-title">🔄 Gmail/Chrome to M365 Transition Guide</h1>
+                    
+                    <div class="info-box cyan">
+                        <p style="font-weight: 600; font-size: 1.125rem;">For Chrome and Gmail Users: What Changed, What Stayed the Same</p>
+                        <p style="margin-top: 0.5rem;">If you're coming from Google Workspace, this guide is for you. Good news: More stayed the same than changed!</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🌐 Chrome → Microsoft Edge</h3>
+                        
+                        <div class="grid grid-2" style="margin-top: 1rem;">
+                            <div>
+                                <strong style="color: #22c55e;">✅ What's the Same:</strong>
+                                <ul style="margin-top: 0.5rem;">
+                                    <li>Same Chromium engine</li>
+                                    <li>Same keyboard shortcuts</li>
+                                    <li>Same extensions work</li>
+                                    <li>Same bookmarks (imported)</li>
+                                    <li>Same DevTools</li>
+                                    <li>Same look and feel</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong style="color: #3b82f6;">✨ What's Better:</strong>
+                                <ul style="margin-top: 0.5rem;">
+                                    <li>M365 integration</li>
+                                    <li>Progressive Web Apps</li>
+                                    <li>Collections feature</li>
+                                    <li>Vertical tabs</li>
+                                    <li>25% less memory</li>
+                                    <li>Sleeping tabs</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <p style="margin-top: 1rem; padding: 1rem; background: #eff6ff; border-radius: 0.5rem;">
+                            <strong>⚡ Quick Setup:</strong> Install Edge → Sign in → Import from Chrome → Done (2 minutes)<br>
+                            <span style="font-size: 0.875rem; color: #2563eb;">→ See full Edge guide for step-by-step instructions</span>
+                        </p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>📧 Gmail → Outlook Translation</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 30%;">Gmail Feature</th>
+                                    <th style="width: 30%;">Outlook Equivalent</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Labels</strong></td>
+                                    <td>Folders or Categories</td>
+                                    <td>Use folders for hierarchy, categories for color-coding</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Stars</strong></td>
+                                    <td>Flags</td>
+                                    <td>Same concept - mark important emails</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Archive</strong></td>
+                                    <td>Archive</td>
+                                    <td>Works exactly the same!</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Primary/Social tabs</strong></td>
+                                    <td>Focused/Other</td>
+                                    <td>AI-powered inbox sorting</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Filters</strong></td>
+                                    <td>Rules</td>
+                                    <td>More powerful automation options</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Snooze</strong></td>
+                                    <td>Snooze</td>
+                                    <td>Same feature, same concept</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>☁️ Google Drive → OneDrive/SharePoint</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 30%;">Google Drive</th>
+                                    <th style="width: 30%;">M365 Equivalent</th>
+                                    <th>When to Use</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>My Drive</strong></td>
+                                    <td>OneDrive</td>
+                                    <td>Your personal files</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Shared Drives</strong></td>
+                                    <td>SharePoint / Teams Files</td>
+                                    <td>Team collaboration</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Shared with me</strong></td>
+                                    <td>Shared / Shared with me</td>
+                                    <td>Files others shared</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Google Docs</strong></td>
+                                    <td>Word Online</td>
+                                    <td>Documents</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Google Sheets</strong></td>
+                                    <td>Excel Online</td>
+                                    <td>Spreadsheets</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Google Slides</strong></td>
+                                    <td>PowerPoint Online</td>
+                                    <td>Presentations</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="info-box green">
+                        <h3>🎯 Terminology Quick Reference</h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-top: 1rem;">
+                            <div style="background: white; padding: 0.75rem; border-radius: 0.375rem;">
+                                <div style="font-size: 0.875rem; color: #6b7280;">You used to say:</div>
+                                <div style="font-weight: 600;">"Use Chrome"</div>
+                                <div style="font-size: 0.875rem; color: #2563eb; margin-top: 0.25rem;">Now say: "Use Edge"</div>
+                            </div>
+                            <div style="background: white; padding: 0.75rem; border-radius: 0.375rem;">
+                                <div style="font-size: 0.875rem; color: #6b7280;">You used to say:</div>
+                                <div style="font-weight: 600;">"Bookmarks"</div>
+                                <div style="font-size: 0.875rem; color: #2563eb; margin-top: 0.25rem;">Now say: "Favorites"</div>
+                            </div>
+                            <div style="background: white; padding: 0.75rem; border-radius: 0.375rem;">
+                                <div style="font-size: 0.875rem; color: #6b7280;">You used to say:</div>
+                                <div style="font-weight: 600;">"Check Gmail"</div>
+                                <div style="font-size: 0.875rem; color: #2563eb; margin-top: 0.25rem;">Now say: "Check Outlook"</div>
+                            </div>
+                            <div style="background: white; padding: 0.75rem; border-radius: 0.375rem;">
+                                <div style="font-size: 0.875rem; color: #6b7280;">You used to say:</div>
+                                <div style="font-weight: 600;">"Label this email"</div>
+                                <div style="font-size: 0.875rem; color: #2563eb; margin-top: 0.25rem;">Now say: "Categorize" or "Move to folder"</div>
+                            </div>
+                            <div style="background: white; padding: 0.75rem; border-radius: 0.375rem;">
+                                <div style="font-size: 0.875rem; color: #6b7280;">You used to say:</div>
+                                <div style="font-weight: 600;">"Google Meet link"</div>
+                                <div style="font-size: 0.875rem; color: #2563eb; margin-top: 0.25rem;">Now say: "Teams meeting"</div>
+                            </div>
+                            <div style="background: white; padding: 0.75rem; border-radius: 0.375rem;">
+                                <div style="font-size: 0.875rem; color: #6b7280;">You used to say:</div>
+                                <div style="font-weight: 600;">"My Drive"</div>
+                                <div style="font-size: 0.875rem; color: #2563eb; margin-top: 0.25rem;">Now say: "My OneDrive"</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box purple">
+                        <h3>🎓 Learning Timeline for Gmail/Chrome Users</h3>
+                        <ul>
+                            <li><strong>Hour 1:</strong> "Edge looks exactly like Chrome!"</li>
+                            <li><strong>Day 1:</strong> "Everything imported perfectly"</li>
+                            <li><strong>Day 3:</strong> "Outlook is more powerful than I thought"</li>
+                            <li><strong>Week 1:</strong> "I'm comfortable with the basics"</li>
+                            <li><strong>Week 2:</strong> "I don't even think about the difference anymore"</li>
+                            <li><strong>Week 3:</strong> "Why didn't we switch sooner?"</li>
+                        </ul>
+                        <p style="margin-top: 1rem; font-weight: 600; color: #7c3aed;">Average adjustment time: 5-7 days. Then it feels natural!</p>
+                    </div>
+                `,
+                
+                faq: `
+                    <h1 class="section-title">❓ Frequently Asked Questions</h1>
+                    
+                    <div class="info-box amber">
+                        <p style="font-weight: 600;">Quick answers to the most common M365 questions</p>
+                    </div>
+                    
+                    ${[
+                        {
+                            category: '🌐 Browser & Microsoft Edge',
+                            questions: [
+                                { q: 'Do I have to use Microsoft Edge?', a: 'Not required, but strongly recommended. Edge is built on Chrome\'s engine with M365 optimizations. Everything from Chrome transfers in 30 seconds. You\'ll notice faster M365 apps, better integration, and exclusive features like PWAs. Give it one week - most people don\'t switch back.' },
+                                { q: 'Will my Chrome extensions work in Edge?', a: 'Yes! 99% of Chrome extensions work in Edge. Install them from the Chrome Web Store or Edge Add-ons store.' },
+                                { q: 'How do I import my Chrome bookmarks?', a: 'Edge Settings → Profiles → Import browser data → Select Chrome → Import. Takes 30 seconds and copies everything: bookmarks, passwords, extensions, history.' },
+                                { q: 'What\'s different between Chrome and Edge?', a: 'Same Chromium engine and interface. Edge adds: M365 integration, Collections, Vertical Tabs, PWAs, better performance (25% less memory), and sleeping tabs. All your Chrome shortcuts work exactly the same.' },
+                                { q: 'Can I keep both Chrome and Edge?', a: 'Absolutely! Many people use Edge for work (M365) and Chrome for personal browsing. Both can coexist peacefully.' },
+                            ]
+                        },
+                        {
+                            category: '🚀 Getting Started',
+                            questions: [
+                                { q: 'How do I sign into Microsoft 365?', a: 'Go to office.com and sign in with your CafeMoto Coffee Roasters email and password. Bookmark this page - it\'s your home base!' },
+                                { q: 'Do I need to install anything?', a: 'No! Everything works in a web browser (preferably Edge). Desktop apps are optional for offline work or advanced features. For the best experience, install Teams and Outlook as PWAs from Edge.' },
+                                { q: 'How long does it take to learn M365?', a: 'Basics in 1 week. Comfortable in 2-4 weeks. Advanced features ongoing. Most people feel productive within 5-7 days.' },
+                                { q: 'Where did my old Gmail emails go?', a: 'Ask IT about migration status. Your emails were likely transferred to Outlook or archived. Check with IT support for specifics.' },
+                            ]
+                        },
+                        {
+                            category: '✉️ Email & Outlook',
+                            questions: [
+                                { q: 'What happened to my Gmail labels?', a: 'In Outlook, use Folders (hierarchical) or Categories (color tags like labels). You can use both! Categories work more like Gmail labels.' },
+                                { q: 'How do I create an email rule/filter?', a: 'Right-click an email → Rules → Create rule. Set conditions (from, subject, etc.) and actions (move, flag, categorize). Much more powerful than Gmail filters!' },
+                                { q: 'Where\'s the Archive button?', a: 'Top toolbar! Same as Gmail - removes from inbox but keeps the email searchable.' },
+                                { q: 'Can I use keyboard shortcuts?', a: 'Yes! Many Gmail shortcuts work, plus Outlook has its own. Press ? to see shortcuts in Outlook web.' },
+                            ]
+                        },
+                        {
+                            category: '💬 Teams & Meetings',
+                            questions: [
+                                { q: 'How do I join a Teams meeting?', a: 'Click the meeting link in your email or calendar. Works in browser at teams.microsoft.com - no account needed for guests!' },
+                                { q: 'How do I record a meeting?', a: 'During meeting, click ... (More) → Record and transcribe → Start recording. Everyone will be notified.' },
+                                { q: 'Can I blur my background?', a: 'Yes! Before or during meeting, click ... (More) → Apply background effects → Choose blur or custom background.' },
+                                { q: 'What\'s the difference between Chat and Teams?', a: 'Chat = quick 1-on-1 or small group messages. Teams = organized workspace for projects with channels, files, and apps.' },
+                            ]
+                        },
+                        {
+                            category: '☁️ Files & Storage',
+                            questions: [
+                                { q: 'OneDrive or SharePoint - which do I use?', a: 'OneDrive = YOUR personal files. SharePoint = TEAM files. Think: OneDrive for drafts, SharePoint for collaboration.' },
+                                { q: 'How much storage do I get?', a: 'Usually 1TB+ in OneDrive. Much more than Gmail\'s 15GB! Check office.com for your specific allocation.' },
+                                { q: 'Can I work on files offline?', a: 'Yes! Desktop apps (Word, Excel, PowerPoint) work offline and sync when online. In OneDrive, mark files for offline access.' },
+                                { q: 'How do I share a file securely?', a: 'Right-click file → Share → Enter email → Choose "View only" or "Can edit" → Send. They get a secure link, no file attachment needed!' },
+                            ]
+                        },
+                        {
+                            category: '🔧 Technical Issues',
+                            questions: [
+                                { q: 'Why is Teams/Outlook slow?', a: 'First, try using Edge instead of Chrome - noticeable speed improvement for M365 apps. If still slow, check internet connection, close unused tabs, or try desktop app instead of web.' },
+                                { q: 'I can\'t find a file I saved', a: 'Check: 1) OneDrive (personal files), 2) SharePoint/Teams files (team files), 3) Recent files in Office apps, 4) Use search bar at office.com to search everywhere!' },
+                                { q: 'Meeting audio/video not working', a: 'In Teams, click ... → Settings → Devices. Test camera/microphone. Allow browser permissions. Try different browser (Edge recommended).' },
+                                { q: 'Who do I contact for help?', a: 'Contact CafeMoto Coffee Roasters IT Support - they\'re here to help! Also check this FAQ and the relevant training modules.' },
+                            ]
+                        }
+                    ].map((cat, idx) => `
+                        <div class="card" style="padding: 0; overflow: hidden; margin-bottom: 1.5rem;">
+                            <div style="background: linear-gradient(to right, #FFC107, #FFB300); padding: 1rem;">
+                                <h3 style="color: white; margin: 0;">${cat.category}</h3>
+                            </div>
+                            ${cat.questions.map((item, qIdx) => `
+                                <div class="faq-item">
+                                    <button class="faq-btn" onclick="toggleFaq('faq-${idx}-${qIdx}')">
+                                        <span class="faq-chevron" id="chevron-${idx}-${qIdx}">▶</span>
+                                        <div style="flex: 1;">
+                                            <p style="font-weight: 600; color: #111827; text-align: left;">${item.q}</p>
+                                            <div class="faq-answer" id="faq-${idx}-${qIdx}">${item.a}</div>
+                                        </div>
+                                    </button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `).join('')}
+                    
+                    <div class="info-box blue">
+                        <h3>Still Have Questions?</h3>
+                        <ul>
+                            <li><strong>Search Microsoft Support:</strong> <a href="https://support.microsoft.com" target="_blank">support.microsoft.com</a></li>
+                            <li><strong>Contact IT Support:</strong> [Add your support contact info]</li>
+                            <li><strong>Microsoft Community:</strong> <a href="https://answers.microsoft.com" target="_blank">answers.microsoft.com</a></li>
+                            <li><strong>Edge Help:</strong> <a href="https://support.microsoft.com/microsoft-edge" target="_blank">Microsoft Edge Support</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-box green">
+                        <h3>💡 Can't Find Your Answer?</h3>
+                        <p>Remember: M365 has powerful search built into every app. Try searching for your question in:</p>
+                        <ul style="margin-top: 0.5rem;">
+                            <li><strong>Office.com search bar</strong> - Searches across all apps</li>
+                            <li><strong>Outlook search</strong> - Finds emails, calendar, contacts</li>
+                            <li><strong>Teams search</strong> - Searches messages, files, people</li>
+                            <li><strong>OneDrive search</strong> - Finds files and file contents</li>
+                        </ul>
+                    </div>
+                `
+            };
+            
+            content.innerHTML = pages[activeSection];
+        }
+        
+        function toggleFaq(id) {
+            const answer = document.getElementById(id);
+            const chevron = document.getElementById('chevron-' + id.replace('faq-', ''));
+            if (answer.classList.contains('show')) {
+                answer.classList.remove('show');
+                chevron.textContent = '▶';
+            } else {
+                answer.classList.add('show');
+                chevron.textContent = '▼';
+            }
+        }
+        
+        // Initialize
+        renderNav();
+        renderContent();
+    </script>
+</body>
+</html>
